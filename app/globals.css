@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7faf9;
+  --foreground: #101828;
 }
 
 @theme inline {
@@ -14,13 +14,206 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b1220;
+    --foreground: #edf2f7;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.tcga-scene {
+  --mouse-x: 50vw;
+  --mouse-y: 50vh;
+  position: relative;
+  overflow: hidden;
+  background: #100606;
+}
+
+.tcga-lava-backdrop,
+.tcga-city-backdrop,
+.tcga-fire-gif-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tcga-lava-backdrop {
+  background:
+    linear-gradient(rgba(7, 6, 8, 0.35), rgba(8, 2, 1, 0.74)),
+    radial-gradient(1200px 780px at 15% 12%, rgba(251, 146, 60, 0.42) 0%, transparent 62%),
+    radial-gradient(1100px 740px at 92% 15%, rgba(239, 68, 68, 0.37) 0%, transparent 56%);
+    
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.25) contrast(1.05);
+}
+
+.tcga-city-backdrop {
+  background:
+    linear-gradient(rgba(12, 2, 2, 0.2), rgba(8, 1, 1, 0.5)),
+    url("https://cdna.artstation.com/p/assets/images/images/014/411/112/large/thomas-ripoll-kobayashi-screen8.jpg?1543868861");
+  background-size: cover;
+  background-position: center center;
+  mix-blend-mode: screen;
+  opacity: 0.62;
+  filter: blur(1.5px) saturate(1.22) contrast(1.08);
+}
+
+.tcga-fire-gif-backdrop {
+  background:
+    linear-gradient(rgba(20, 4, 4, 0.4), rgba(10, 2, 2, 0.55));
+   
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: screen;
+  opacity: 0.12;
+  filter: blur(1.5px) saturate(1.3);
+}
+
+.tcga-dashboard {
+  color: #f8fafc;
+}
+
+.tcga-metric-value {
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 14px rgba(251, 146, 60, 0.36);
+}
+
+.tcga-history-wrap {
+  font-variant-numeric: tabular-nums;
+}
+
+.tcga-history-header {
+  backdrop-filter: blur(10px);
+}
+
+.tcga-scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(251, 146, 60, 0.55) rgba(0, 0, 0, 0.25);
+}
+
+.tcga-scroll-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tcga-scroll-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 999px;
+}
+
+.tcga-scroll-area::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, rgba(251, 146, 60, 0.85), rgba(239, 68, 68, 0.85));
+  border-radius: 999px;
+}
+
+.tcga-cursor-glow {
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(251, 146, 60, 0.3) 0%,
+    rgba(239, 68, 68, 0.22) 14%,
+    rgba(251, 191, 36, 0.1) 28%,
+    transparent 44%
+  );
+  transition: background 0.2s linear;
+  z-index: 1;
+}
+
+.tcga-gradient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(10px);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.tcga-gradient-orb-a {
+  width: min(40vw, 480px);
+  height: min(40vw, 480px);
+  top: -8%;
+  left: -4%;
+  background: radial-gradient(circle at 30% 30%, #fb923c, #dc2626);
+  animation: tcga-float-a 14s ease-in-out infinite;
+}
+
+.tcga-gradient-orb-b {
+  width: min(44vw, 530px);
+  height: min(44vw, 530px);
+  bottom: -12%;
+  right: -8%;
+  background: radial-gradient(circle at 30% 30%, #fbbf24, #ef4444);
+  animation: tcga-float-b 18s ease-in-out infinite;
+}
+
+.tcga-gradient-orb-c {
+  width: min(24vw, 320px);
+  height: min(24vw, 320px);
+  top: 34%;
+  right: 28%;
+  background: radial-gradient(circle at 30% 30%, #fdba74, #f97316);
+  animation: tcga-float-c 12s ease-in-out infinite;
+}
+
+.tcga-token-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tcga-game-token {
+  position: absolute;
+  top: -5%;
+  color: rgba(254, 243, 199, 0.92);
+  filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.65));
+  animation-name: tcga-token-float;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes tcga-float-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(30px, 24px, 0);
+  }
+}
+
+@keyframes tcga-float-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-30px, -20px, 0);
+  }
+}
+
+@keyframes tcga-float-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(16px, -22px, 0) scale(1.1);
+  }
+}
+
+@keyframes tcga-token-float {
+  0% {
+    transform: translate3d(0, -10%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(28px, 115vh, 0) rotate(360deg);
+  }
 }
